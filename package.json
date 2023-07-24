@@ -1,0 +1,28 @@
+{
+  "name": "viewfly-antd",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "docs": "node ./scripts/doc/index.js",
+    "icon": "node ./scripts/doc/icon.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9"
+  },
+  "dependencies": {
+    "@ant-design/colors": "^7.0.0",
+    "@ant-design/icons-svg": "^4.2.1",
+    "@ctrl/tinycolor": "^3.6.0",
+    "@types/node": "^20.3.1",
+    "@viewfly/core": "^0.0.15",
+    "@viewfly/hooks": "^0.0.15",
+    "@viewfly/platform-browser": "^0.0.15",
+    "highlight.js": "^11.8.0",
+    "less": "^4.1.3"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "jsxImportSource": "@viewfly/core",
+    /* Bundler mode */
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@antd/viewfly/icon": [
+        "./src/viewfly-icon"
+      ],
+      "@antd/viewfly/ui": [
+        "./src/viewfly-antd"
+      ],
+    }
+  },
+  "include": [
+    "src"
+  ]
+}
