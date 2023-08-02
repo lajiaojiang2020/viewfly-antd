@@ -23,7 +23,9 @@ export interface BaseButtonProps {
     icon?: JSXNode;
     /** 形状 */
     shape?: ButtonShape;
-    /** 大小 */
+    /** 大小 
+     * @default middle
+    */
     size?: SizeType;
     /** 是否禁用
      * @default false
@@ -89,6 +91,7 @@ export const Button: FC<ButtonProps> = (props) => {
             btnStyles.button,
             btnStyles.type[type],
             btnStyles[shape],
+            btnStyles[size],
             danger && btnStyles.danger,
             disabled && btnStyles.disabled,
             icon && (children === undefined || children === null) ? btnStyles.onlyIcon : null,

@@ -1,5 +1,5 @@
 
-import { defineStyleSheet, vfBase, vfColor, vfSize, vfTheme, FC } from "@antd/viewfly/ui"
+import { defineStyleSheet, vfBase, vfColor, vfBase, vfTheme, FC } from "@antd/viewfly/ui"
 import demoMap from '@/docs/@demo'
 import demoComponent from '@/docs/@demo/components'
 import { CodeView } from "./CodeView"
@@ -45,7 +45,7 @@ const styles = defineStyleSheet('demo-card', ({ className, define, s }) => {
         border: vfBase.border,
         backgroundColor: vfColor.baseBackground,
         transition: vfBase.transition,
-        borderRadius: vfSize.borderRadius,
+        borderRadius: vfBase.borderRadius,
         marginBottom: 15,
 
         [s(`&${selected}`)]: {

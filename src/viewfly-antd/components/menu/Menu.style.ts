@@ -19,6 +19,8 @@ export const menuStyles = defineStyleSheet('menu', ({ className, define, s }) =>
     const action = className('action');
     const isOpen = className('is-open')
 
+
+
     const actionStyle: DefineSheet = {
         position: 'absolute',
         width: '100%',
@@ -29,7 +31,7 @@ export const menuStyles = defineStyleSheet('menu', ({ className, define, s }) =>
         content: " "
     }
 
-    console.log(define(s(menu), {
+    define(s(menu), {
         margin: 0,
         padding: 0,
         color: vfColor.primaryText,
@@ -107,7 +109,7 @@ export const menuStyles = defineStyleSheet('menu', ({ className, define, s }) =>
                 transform: 'rotate(45deg) translateX(-2.5px)'
             }
         }
-    }))
+    })
 
     return {
         menu, menuRoot, item, disabled, label, title,

@@ -1,12 +1,14 @@
-import { defineStyleSheet, vfBase, vfSize, vfColor, vfTheme } from "../../style/base.style";
+import { defineStyleSheet, vfBase, vfColor, vfTheme } from "../../style/base.style";
+import { useCssSizeDefine } from './../../style/cssHooks'
 import { ButtonShape, ButtonType } from "./Button";
 import { DefineSheet } from '../../defineStyleSheet'
-import { SizeType } from "@/viewfly-antd/type";
+
 const ButtonTypes: ButtonType[] = ["default", "primary", "ghost", "dashed", "link", "text"];
 const ButtonShapes: ButtonShape[] = ["default", "circle", "round"];
-const ButtonSizes: SizeType[] = ['small', 'middle', 'large'];
 
-export const btnStyles = defineStyleSheet('button', ({ className, define, s }) => {
+
+export const btnStyles = defineStyleSheet('button', (props) => {
+    const { className, define, s } = props
     const button = className();
     const icon = className('icon');
     const onlyIcon = className('only-icon')
@@ -16,8 +18,8 @@ export const btnStyles = defineStyleSheet('button', ({ className, define, s }) =
     const typesSelector: Record<ButtonType, number> = {} as Record<ButtonType, number>;
     const shapeClassName: Record<ButtonShape, string> = {} as Record<ButtonShape, string>;
     const shapeSelector: Record<ButtonShape, number> = {} as Record<ButtonShape, number>;
-    const sizeClassName: Record<SizeType, string> = {} as Record<SizeType, string>;
-    const sizeSelector: Record<SizeType, number> = {} as Record<SizeType, number>;
+
+    const sizeClassName = useCssSizeDefine(props);
 
     ButtonTypes.forEach((type: ButtonType) => {
         typesClassName[type] = className(`is-${type}`);
@@ -27,10 +29,7 @@ export const btnStyles = defineStyleSheet('button', ({ className, define, s }) =
         shapeClassName[type] = className(`shape-si-${type}`);
         shapeSelector[type] = s(`&${shapeClassName[type]}`)
     });
-    ButtonSizes.forEach((type: SizeType) => {
-        sizeClassName[type] = className(`size-si-${type}`);
-        sizeSelector[type] = s(`&${sizeClassName[type]}`)
-    });
+
 
     const commStyle: DefineSheet = {
         boxShadow: vfBase.boxShadow,
@@ -58,12 +57,6 @@ export const btnStyles = defineStyleSheet('button', ({ className, define, s }) =
     }
 
     define(s(button), {
-        lineHeight: '24px',
-        height: 32,
-        padding: '4px 15px',
-        position: 'relative',
-        display: 'inline-block',
-        whiteSpace: 'nowrap',
         textAlign: 'center',
         backgroundImage: 'none',
         cursor: 'pointer',
@@ -71,9 +64,6 @@ export const btnStyles = defineStyleSheet('button', ({ className, define, s }) =
         touchAction: 'manipulation',
         fontWeight: vfBase.fontWeight,
         border: vfBase.transparentBorder,
-        transition: vfBase.transition,
-        fontSize: vfSize.fontSize,
-        borderRadius: vfSize.borderRadius,
         color: vfColor.primaryText,
         background: vfColor.baseBackground,
 
@@ -150,7 +140,6 @@ export const btnStyles = defineStyleSheet('button', ({ className, define, s }) =
                         }
                     },
                 }
-
             },
 
             [typesSelector.link]: {
@@ -190,7 +179,7 @@ export const btnStyles = defineStyleSheet('button', ({ className, define, s }) =
 
 
         [s(`&${onlyIcon}`)]: {
-            fontSize: 16
+            fontSize: 16 / 14 + 'em'
         },
         [s(icon)]: {
             lineHeight: 0,
@@ -199,5 +188,5 @@ export const btnStyles = defineStyleSheet('button', ({ className, define, s }) =
             marginInlineEnd: 8
         }
     })
-    return { button, icon, danger, onlyIcon, disabled, type: typesClassName, ...shapeClassName }
+    return { button, icon, danger, onlyIcon, disabled, type: typesClassName, ...shapeClassName, ...sizeClassName }
 })

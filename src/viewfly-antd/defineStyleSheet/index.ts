@@ -27,13 +27,14 @@ export type DefineSheet = (CSSProperties & {
 type Selector = number
 
 /** 声明变量 */
-const careteVariable = <T>(name: string, data: T, value: VariableOption<any> = { variable: {}, css: {} } as VariableOption<T>): CMap<T> => {
+const careteVariable = <T>(name: string, data: T, value: VariableOption<any> = { variable: {}, css: {} } as VariableOption<T>, add: string = ''): CMap<T> => {
     const { variable, css } = value;
     const res: CMap<T> = {} as CMap<T>;
     for (let i in data) {
-        const key = css[i]?.key || variableId(name, i);
-        variable[i] = res[i] = `var(${key})`;
-        css[i] = { key, value: data[i] as any }
+        const k = i + add
+        const key = css[k]?.key || variableId(name + (add ? '-' + cssKey(add) : ''), i);
+        variable[k] = res[i] = `var(${key})`;
+        css[k] = { key, value: data[i] as any }
     }
     return res
 }
@@ -74,8 +75,8 @@ export class CSSTSStyleSheet {
     }
 
     /** css 变量 */
-    public variable = <T>(data: Partial<T>) => {
-        const res = careteVariable<T>(this.namespace, data as any, { variable: this._variable, css: this.css });
+    public variable = <T>(data: Partial<T>, name?: string) => {
+        const res = careteVariable<T>(this.namespace, data as any, { variable: this._variable, css: this.css }, name);
         this.updateRoot();
         return res;
     }
@@ -98,7 +99,7 @@ export class CSSTSStyleSheet {
     }
 }
 
-class StyleSheetMethod {
+export class StyleSheetMethod {
     private namespace: string;
     private name: string;
     private selectorsMap: Record<number, string> = {};
