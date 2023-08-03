@@ -19,9 +19,9 @@
     "@ant-design/icons-svg": "^4.2.1",
     "@ctrl/tinycolor": "^3.6.0",
     "@types/node": "^20.3.1",
-    "@viewfly/core": "^0.0.15",
-    "@viewfly/hooks": "^0.0.15",
-    "@viewfly/platform-browser": "^0.0.15",
+    "@viewfly/core": "^0.0.27",
+    "@viewfly/hooks": "^0.0.27",
+    "@viewfly/platform-browser": "^0.0.27",
     "highlight.js": "^11.8.0",
     "less": "^4.1.3"
   }

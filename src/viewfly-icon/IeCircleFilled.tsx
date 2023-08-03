@@ -2,6 +2,6 @@ import { JSXInternal } from "@viewfly/core";
 import { VFIcon, VFIconProps } from "./icon";
 import { IeCircleFilled as svg } from "@ant-design/icons-svg";
 
-export const IeCircleFilled: JSXInternal.ElementClass<VFIconProps> = (props) => {
+export const IeCircleFilled: JSXInternal.ComponentConstructor<VFIconProps> = (props) => {
     return () => <VFIcon {...props} svg={svg} />
 }

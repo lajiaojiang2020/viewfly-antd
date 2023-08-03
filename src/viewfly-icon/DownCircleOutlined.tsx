@@ -2,6 +2,6 @@ import { JSXInternal } from "@viewfly/core";
 import { VFIcon, VFIconProps } from "./icon";
 import { DownCircleOutlined as svg } from "@ant-design/icons-svg";
 
-export const DownCircleOutlined: JSXInternal.ElementClass<VFIconProps> = (props) => {
+export const DownCircleOutlined: JSXInternal.ComponentConstructor<VFIconProps> = (props) => {
     return () => <VFIcon {...props} svg={svg} />
 }

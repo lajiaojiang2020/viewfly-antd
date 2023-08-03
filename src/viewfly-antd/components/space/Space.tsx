@@ -1,4 +1,4 @@
-import { defineStyleSheet, FC } from "@antd/viewfly/ui";
+import { defineStyleSheet, FC, useStyleSheetContext } from "@antd/viewfly/ui";
 import { CSSProperties, HTMLAttributes } from "@viewfly/platform-browser";
 
 
@@ -51,7 +51,8 @@ export const Space: FC<SpaceProps> = (props) => {
         )
     }
 }
-const styles = defineStyleSheet('space', ({ className, define, s }) => {
+const styles = defineStyleSheet('space', () => {
+    const { className, define, s } = useStyleSheetContext();
     const space = className();
     const item = className('item');
 

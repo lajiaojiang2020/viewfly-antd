@@ -1,5 +1,4 @@
-import { createStyleSheet, DefineSheet, StyleSheetMethod } from "../defineStyleSheet";
-import { Sizes, SizeType } from "../type";
+import { createStyleSheet, useStyleSheetContext } from "../defineStyleSheet";
 import { getStyle, Theme } from "./cssVariables";
 
 export const { variable, defineStyleSheet } = createStyleSheet('vf');
@@ -39,59 +38,19 @@ export const vfBase = variable({
     border: '1px solid rgba(5, 5, 5, 0.06)',
     fontWeight: '400',
     boxShadow: '0 2px #00000004',
-    fontSize: 14,
-    borderRadius: 6
+    fontSize: '14px',
+    borderRadius: '6px',
+    baseRadius: '1px'
 });
-
-
-
-//'small' | 'middle' | 'large'
-
-const radius = 1;
-
-const formItemStyle = {
+export const formItemStyle = {
     position: 'relative',
     display: 'inline-block',
     whiteSpace: 'nowrap',
     transition: 'all .3s cubic-bezier(.645,.045,.355,1)',
 }
 
-const createSize = () => {
-    return {
-        small: variable({
-            fontSize: '12px',
-            lineHeight: '22px',
-            height: '22px',
-            padding: '0px 7px',
-            borderRadius: radius * 4 + 'px',
-            ...formItemStyle
-        }, 'size-small'),
-        middle: variable({
-            fontSize: '14px',
-            lineHeight: '32px',
-            height: '32px',
-            padding: '0px 15px',
-            borderRadius: radius * 6 + 'px',
-            ...formItemStyle
-        }, 'size-middle'),
-        large: variable({
-            fontSize: '16px',
-            lineHeight: '40px',
-            height: '40px',
-            padding: '0px 15px',
-            borderRadius: radius * 8 + 'px',
-            ...formItemStyle
-        }, 'size-large'),
-    }
-}
-
-export const vfSzie = createSize();
-
-
-
-
-
-defineStyleSheet('', ({ define, s }) => {
+defineStyleSheet('', () => {
+    const { define, s } = useStyleSheetContext();
     define(s('body,html'), {
         fontSize: 14,
         color: vfColor.textColor

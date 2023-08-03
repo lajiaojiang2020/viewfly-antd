@@ -119,27 +119,14 @@ import { Button, FC, Space, DisabledProvide } from "@antd/viewfly/ui"
 import { useSignal } from "@viewfly/core";
 
 const App: FC = () => {
-    const value = useSignal(false);
-
-
-
     return () => {
-        console.log(value())
         return (
-
             <Space wrap>
-                <DisabledProvide value={value()}>
-                    <Button type="primary" >Primary Button</Button>
-                    <Button>Default Button</Button>
-                    <Button type="dashed">Dashed Button</Button>
-
-                </DisabledProvide>
-                <DisabledProvide value={false}>
-                    <Button type="text" onClick={() => value.set(!value())}>Text Button</Button>
-                    <Button type="link">Link Button</Button>
-                </DisabledProvide>
-
-
+                <Button type="primary" >Primary Button</Button>
+                <Button>Default Button</Button>
+                <Button type="dashed">Dashed Button</Button>
+                <Button type="text" >Text Button</Button>
+                <Button type="link">Link Button</Button>
             </Space>
         )
     }
@@ -197,7 +184,7 @@ const App: FC = () => {
     return () => (
         <Menu
             onClick={onClick}
-            style={{ width: 256 }}
+            style={{ width: 256 + 'px' }}
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
             mode="inline"

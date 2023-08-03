@@ -1,10 +1,8 @@
-import { defineStyleSheet, vfBase, vfColor, DefineSheet } from "@antd/viewfly/ui";
+import { defineStyleSheet, vfBase, vfColor, DefineSheet, useStyleSheetContext } from "@antd/viewfly/ui";
 
 
-
-
-
-export const menuStyles = defineStyleSheet('menu', ({ className, define, s }) => {
+export const menuStyles = defineStyleSheet('menu', () => {
+    const { className, define, s } = useStyleSheetContext()
     const menu = className();
     const menuRoot = className('is-root');
     const item = className('item');

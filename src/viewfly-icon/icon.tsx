@@ -1,4 +1,4 @@
-import { defineStyleSheet } from "@antd/viewfly/ui"
+import { defineStyleSheet, useStyleSheetContext } from "@antd/viewfly/ui"
 import { JSXInternal, jsx } from "@viewfly/core"
 import { HTMLAttributes } from "@viewfly/platform-browser"
 
@@ -12,7 +12,7 @@ interface SVGNode {
 export interface VFIconProps extends HTMLAttributes<HTMLSpanElement> {
     svg?: any
 }
-export const VFIcon: JSXInternal.ElementClass<VFIconProps> = (props) => {
+export const VFIcon: JSXInternal.ComponentConstructor<VFIconProps> = (props) => {
     const toNode = (e: SVGNode): any => {
         if (e?.tag) {
             const props = { ...e.attrs, children: e.children?.map(toNode) };
@@ -32,7 +32,8 @@ export const VFIcon: JSXInternal.ElementClass<VFIconProps> = (props) => {
     }
 }
 
-const styles = defineStyleSheet('icon', ({ className, define, s }) => {
+const styles = defineStyleSheet('icon', () => {
+    const { className, define, s } = useStyleSheetContext()
     const icon = className();
     define(s(icon), {
         display: 'inline-flex',

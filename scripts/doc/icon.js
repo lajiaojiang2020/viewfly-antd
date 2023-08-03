@@ -15,7 +15,7 @@ const component = (name) => {
 import { VFIcon ,VFIconProps} from "./icon";
 import {${name} as svg} from "@ant-design/icons-svg";
 
-export const ${name}:JSXInternal.ElementClass<VFIconProps> = (props) => {
+export const ${name}:JSXInternal.ComponentConstructor<VFIconProps> = (props) => {
     return ()=><VFIcon {...props} svg={svg} />
 }`
 }

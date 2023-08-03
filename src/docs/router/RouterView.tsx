@@ -25,3 +25,4 @@ export const RouterView: FC<RouterViewProps> = (props) => {
     !window.location.hash && router.push(props.defaultPath || '/')
     return () => children();
 }
+

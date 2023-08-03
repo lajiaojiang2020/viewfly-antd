@@ -3,12 +3,13 @@ import { createApp } from '@viewfly/platform-browser';
 import { RouterView } from './docs/router/RouterView';
 
 
-const App: JSXInternal.ElementClass = () => {
-
+const App: JSXInternal.ComponentConstructor = () => {
     return () => <RouterView defaultPath='/home' />
 }
 
-createApp(document.getElementById('app') as HTMLElement, <App />)
+
+
+createApp(<App />).mount(document.getElementById('app') as HTMLElement)
 
 
 

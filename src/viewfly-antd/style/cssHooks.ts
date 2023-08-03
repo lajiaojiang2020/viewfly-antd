@@ -1,14 +1,16 @@
-import { StyleSheetMethod, DefineSheet } from "../defineStyleSheet";
-import { SizeType, Sizes } from "../type";
-import { vfSzie } from "./base.style";
+import { DefineSheet, useStyleSheetContext } from "../defineStyleSheet";
+import { SizeType, Sizes, CSSDifineMap, ClassNameMap } from "../type";
+import { vfSzie } from "./size.style";
+
 
 
 /**  尺寸 */
-export const useCssSizeDefine = ({ className, define, s }: StyleSheetMethod) => {
-    const sizeClassName: Record<SizeType, string> = {} as Record<SizeType, string>;
-    const sizeStyle: Record<number, DefineSheet> = {} as Record<number, DefineSheet>;
+export const useCssSizeDefine = () => {
+    const { className, define, s } = useStyleSheetContext();
+    const sizeClassName: ClassNameMap<SizeType> = {} as ClassNameMap<SizeType>
+    const sizeStyle: CSSDifineMap = {};
     Sizes.forEach((type: SizeType) => {
-        sizeClassName[type] = className(`size-si-${type}`);
+        sizeClassName[type] = className(`size-${type}`);
         sizeStyle[s(`&${sizeClassName[type]}`)] = {
             ...vfSzie[type]
         } as DefineSheet;

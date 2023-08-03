@@ -1,6 +1,6 @@
+import { useStyleSheetContext } from "@/viewfly-antd/defineStyleSheet";
 import { onPropsChanged, useSignal } from "@viewfly/core";
 import { CSSProperties, HTMLAttributes } from "@viewfly/platform-browser";
-import { cls } from "../../classNames";
 import { defineStyleSheet } from "../../style/base.style";
 import { FC } from "../../type";
 
@@ -62,7 +62,7 @@ export const ScrollView: FC<ScrollViewProps> = (_props) => {
             <>
                 <ScrollViewCss {...scrollbarStyle} />
                 <div {...props} class={styles.container} >
-                    <div class={cls(styles.scrollbar, scrollX && styles.scrollbarX, scrollY && styles.scrollbarY)} >
+                    <div class={[styles.scrollbar, scrollX && styles.scrollbarX, scrollY && styles.scrollbarY]} >
                         <div class={styles.body} >{children}</div>
                     </div>
                 </div>
@@ -84,7 +84,8 @@ const style2css = (style: CSSProperties) => {
     return css.join('');
 }
 
-const styles = defineStyleSheet('scroll-view', ({ className, define, s }) => {
+const styles = defineStyleSheet('scroll-view', () => {
+    const { className, define, s } = useStyleSheetContext()
     const container = className();
     const scrollbar = className('scrollbar')
     const scrollbarX = className('scrollbar-x');

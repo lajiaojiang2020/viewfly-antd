@@ -1,13 +1,17 @@
 
 
 
-import { defineStyleSheet, vfBase, FC, JSXNode } from "@antd/viewfly/ui"
+import { defineStyleSheet, vfBase, FC, JSXNode, useStyleSheetContext, Menu } from "@antd/viewfly/ui"
 
 const ComponentLayout: FC<{ children?: JSXNode }> = (props) => {
+
+
     return () => {
         return (
             <div class={styles.layout}>
-                <div class={styles.menu}></div>
+                <div class={styles.menu}>
+                    <Menu items={[]} />
+                </div>
                 <div class={styles.body}>
                     {props.children}
                 </div>
@@ -19,7 +23,8 @@ const ComponentLayout: FC<{ children?: JSXNode }> = (props) => {
     }
 }
 
-const styles = defineStyleSheet('component-layout', ({ className, define, s }) => {
+const styles = defineStyleSheet('component-layout', () => {
+    const { className, define, s } = useStyleSheetContext()
     const layout = className();
     const menu = className('menu');
     const affix = className('affix')

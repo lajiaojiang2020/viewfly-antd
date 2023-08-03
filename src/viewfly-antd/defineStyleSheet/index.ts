@@ -2,8 +2,9 @@ import * as CSSTYPE from 'csstype';
 
 export interface CSSProperties extends CSSTYPE.Properties<CSSValue> { };
 
+type UUID<T> = T extends string ? string : number
 /** 唯一标识 */
-const _id = ((i = 0) => () => (i++, i))();
+const uuid = ((i = 0) => <T>(v?: T): UUID<T> => (i++, v ? v + '-' + i : i) as UUID<T>)();
 
 /** css变量 */
 const variableId = (name: string, key: string) => `--${name}-${cssKey(key)}`;
@@ -49,10 +50,13 @@ const isNumber = (v: string) => {
     return /^[0-9]+$/.test(v);
 }
 
-export type DefineStyle<C> = (methods: StyleSheetMethod) => C
+export type DefineStyle<C> = (methods: StyleSheetMethod) => C;
+
+const Context: StyleSheetMethod[] = [];
 
 /** 样式表实例 */
 export class CSSTSStyleSheet {
+
     private root = new CSSStyleSheet();
     private css: Record<string, KV> = {};
     /** 全局变量 */
@@ -92,11 +96,20 @@ export class CSSTSStyleSheet {
     }
 
     /** 定义样式表 */
-    public defineStyleSheet = <C>(namespace: string, def: DefineStyle<C>): C => {
+    public defineStyleSheet = <C>(namespace: string, def: () => C): C => {
         const methods = new StyleSheetMethod(this.namespace, namespace);
-        const classnames = def(methods);
+        Context.push(methods);
+        const classnames = def();
+        Context.pop();
         return this.repliceClassName(classnames) as C;
     }
+
+
+}
+
+export const useStyleSheetContext = () => {
+    const context = Context[Context.length - 1];
+    return context || new StyleSheetMethod(uuid('vf'), uuid('vf'));
 }
 
 export class StyleSheetMethod {
@@ -142,7 +155,7 @@ export class StyleSheetMethod {
     }
 
     public s = (s: string) => {
-        const id = _id();
+        const id = uuid();
         this.selectorsMap[id] = s;
         return id;
     }

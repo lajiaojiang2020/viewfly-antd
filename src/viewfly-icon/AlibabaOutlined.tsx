@@ -2,6 +2,6 @@ import { JSXInternal } from "@viewfly/core";
 import { VFIcon, VFIconProps } from "./icon";
 import { AlibabaOutlined as svg } from "@ant-design/icons-svg";
 
-export const AlibabaOutlined: JSXInternal.ElementClass<VFIconProps> = (props) => {
+export const AlibabaOutlined: JSXInternal.ComponentConstructor<VFIconProps> = (props) => {
     return () => <VFIcon {...props} svg={svg} />
 }

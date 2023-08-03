@@ -2,6 +2,6 @@ import { JSXInternal } from "@viewfly/core";
 import { VFIcon, VFIconProps } from "./icon";
 import { EditFilled as svg } from "@ant-design/icons-svg";
 
-export const EditFilled: JSXInternal.ElementClass<VFIconProps> = (props) => {
+export const EditFilled: JSXInternal.ComponentConstructor<VFIconProps> = (props) => {
     return () => <VFIcon {...props} svg={svg} />
 }

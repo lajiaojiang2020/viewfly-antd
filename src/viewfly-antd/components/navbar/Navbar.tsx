@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "@viewfly/platform-browser"
-import { CSSProperties, cssValue } from "../../defineStyleSheet"
-import { defineStyleSheet, vfColor } from "../../style/base.style"
+import { CSSProperties, cssValue, useStyleSheetContext } from "../../defineStyleSheet"
+import { defineStyleSheet, vfBase, vfColor } from "../../style/base.style"
 import { FC } from "../../type"
 
 
@@ -23,7 +23,8 @@ export const Navbar: FC<Navbar> = (props) => {
     }
 }
 
-const styles = defineStyleSheet('navbar', ({ className, define, s }) => {
+const styles = defineStyleSheet('navbar', () => {
+    const { className, define, s } = useStyleSheetContext()
     const navbar = className();
     define(s(navbar), {
         width: '100%',
@@ -34,6 +35,9 @@ const styles = defineStyleSheet('navbar', ({ className, define, s }) => {
         maxWidth: '100%',
         boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
         padding: '0px 40px',
+        zIndex: 1000,
+        borderBottom: vfBase.border,
+
         [s('>*')]: {
             margin: 'auto'
         }

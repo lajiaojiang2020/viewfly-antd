@@ -1,14 +1,14 @@
 import { defineStyleSheet, vfBase, vfColor, vfTheme } from "../../style/base.style";
 import { useCssSizeDefine } from './../../style/cssHooks'
 import { ButtonShape, ButtonType } from "./Button";
-import { DefineSheet } from '../../defineStyleSheet'
+import { DefineSheet, useStyleSheetContext } from '../../defineStyleSheet'
 
 const ButtonTypes: ButtonType[] = ["default", "primary", "ghost", "dashed", "link", "text"];
 const ButtonShapes: ButtonShape[] = ["default", "circle", "round"];
 
 
-export const btnStyles = defineStyleSheet('button', (props) => {
-    const { className, define, s } = props
+export const btnStyles = defineStyleSheet('button', () => {
+    const { className, define, s } = useStyleSheetContext()
     const button = className();
     const icon = className('icon');
     const onlyIcon = className('only-icon')
@@ -19,7 +19,7 @@ export const btnStyles = defineStyleSheet('button', (props) => {
     const shapeClassName: Record<ButtonShape, string> = {} as Record<ButtonShape, string>;
     const shapeSelector: Record<ButtonShape, number> = {} as Record<ButtonShape, number>;
 
-    const sizeClassName = useCssSizeDefine(props);
+    const sizeClassName = useCssSizeDefine();
 
     ButtonTypes.forEach((type: ButtonType) => {
         typesClassName[type] = className(`is-${type}`);

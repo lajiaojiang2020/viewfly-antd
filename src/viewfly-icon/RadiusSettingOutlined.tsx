@@ -2,6 +2,6 @@ import { JSXInternal } from "@viewfly/core";
 import { VFIcon, VFIconProps } from "./icon";
 import { RadiusSettingOutlined as svg } from "@ant-design/icons-svg";
 
-export const RadiusSettingOutlined: JSXInternal.ElementClass<VFIconProps> = (props) => {
+export const RadiusSettingOutlined: JSXInternal.ComponentConstructor<VFIconProps> = (props) => {
     return () => <VFIcon {...props} svg={svg} />
 }

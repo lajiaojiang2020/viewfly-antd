@@ -1,7 +1,7 @@
 
 import * as Icons from "@antd/viewfly/icon"
 import { DemoPage } from "@/docs/components/DemoPage"
-import { defineStyleSheet, vfBase, vfTheme, FC } from "@antd/viewfly/ui"
+import { defineStyleSheet, vfBase, vfTheme, FC, useStyleSheetContext } from "@antd/viewfly/ui"
 
 
 
@@ -31,7 +31,9 @@ const IconPage: FC = () => {
     }
 }
 
-const styles = defineStyleSheet('icon-page', ({ className, define, s }) => {
+const styles = defineStyleSheet('icon-page', () => {
+    const { className, define, s } = useStyleSheetContext();
+
     const iconPage = className();
     const item = className('item')
     const icon = className('icon')

@@ -1,5 +1,5 @@
 
-import { defineStyleSheet, vfBase, vfColor, vfBase, vfTheme, FC } from "@antd/viewfly/ui"
+import { defineStyleSheet, vfBase, vfColor, vfTheme, FC, useStyleSheetContext } from "@antd/viewfly/ui"
 import demoMap from '@/docs/@demo'
 import demoComponent from '@/docs/@demo/components'
 import { CodeView } from "./CodeView"
@@ -33,7 +33,8 @@ export const DemoCard: FC<DemoCardProps> = (props) => {
     }
 }
 
-const styles = defineStyleSheet('demo-card', ({ className, define, s }) => {
+const styles = defineStyleSheet('demo-card', () => {
+    const { className, define, s } = useStyleSheetContext();
     const card = className();
     const selected = className('selected');
     const content = className('content');
