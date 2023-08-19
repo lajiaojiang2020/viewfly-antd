@@ -1,5 +1,5 @@
 
-import { defineStyleSheet, vfBase, vfColor, vfTheme, FC, useStyleSheetContext } from "@antd/viewfly/ui"
+import { defineStyleSheet, vfBase, vfColor, vfTheme, FC, useStyleSheetContext, JSXNode } from "@antd/viewfly/ui"
 import demoMap from '@/docs/@demo'
 import demoComponent from '@/docs/@demo/components'
 import { CodeView } from "./CodeView"
@@ -32,6 +32,25 @@ export const DemoCard: FC<DemoCardProps> = (props) => {
         )
     }
 }
+export interface DemoCardGroupProps {
+    children?: JSXNode
+}
+export const DemoCardGroup: FC<DemoCardGroupProps> = (props) => {
+    return () => {
+        const list = props.children as JSXNode[];
+        const left: JSXNode[] = []
+        const right: JSXNode[] = []
+        list.forEach((node, i) => {
+            i % 2 == 0 ? left.push(node) : right.push(node)
+        })
+        return (
+            <div class={styles.group}>
+                <div>{left}</div>
+                <div>{right}</div>
+            </div>
+        )
+    }
+}
 
 const styles = defineStyleSheet('demo-card', () => {
     const { className, define, s } = useStyleSheetContext();
@@ -40,6 +59,18 @@ const styles = defineStyleSheet('demo-card', () => {
     const content = className('content');
     const action = className('action');
     const label = className('label')
+    const group = className('group');
+
+    define(s(group), {
+        display: 'flex',
+        flexWrap: 'wrap',
+        width: '100%',
+        justifyContent: 'space-between',
+        [s('&>div')]: {
+            width: 'calc(50% - 7.5px)'
+        }
+
+    })
 
     define(s(card), {
         fontSize: 14,
@@ -79,7 +110,7 @@ const styles = defineStyleSheet('demo-card', () => {
             width: '100%'
         }
     })
-    return { card, selected, content, action, label }
+    return { card, selected, content, action, label, group }
 })
 
 

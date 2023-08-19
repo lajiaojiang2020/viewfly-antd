@@ -2,7 +2,7 @@
 import { DemoPage } from "@/docs/components/DemoPage"
 import { FC } from "@antd/viewfly/ui"
 /**
- * @group  
+ * @group 组件
  * @groupIndex 0
  * @title 组件总览
  * @orderIndex 0

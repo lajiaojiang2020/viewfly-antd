@@ -14,7 +14,7 @@ export interface OutlineProps {
     position?: string[]
 }
 /** 大纲  */
-export const Outline: FC<OutlineProps> = (props) => {
+export const Outline: FC<OutlineProps> = () => {
 
 
     return () => {

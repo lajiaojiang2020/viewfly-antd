@@ -1,7 +1,7 @@
 import { createStyleSheet, useStyleSheetContext } from "../defineStyleSheet";
 import { getStyle, Theme } from "./cssVariables";
 
-export const { variable, defineStyleSheet } = createStyleSheet('vf');
+export const { variable, defineStyleSheet, defineAnimate } = createStyleSheet('vf');
 export const vfTheme = variable(getStyle())
 export const vfColor = variable({
     textColor: '#F000000e0',
@@ -53,7 +53,8 @@ defineStyleSheet('', () => {
     const { define, s } = useStyleSheetContext();
     define(s('body,html'), {
         fontSize: 14,
-        color: vfColor.textColor
+        color: vfColor.textColor,
+        fontFamily: `-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji'`
     })
     define(s('*'), {
         margin: '0px',

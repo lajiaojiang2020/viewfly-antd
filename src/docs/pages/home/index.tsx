@@ -1,6 +1,6 @@
 
 import { router } from "@/docs/router"
-import { defineStyleSheet, Navbar, ScrollView, useStyleSheetContext, vfBase, vfTheme } from "@antd/viewfly/ui"
+import { defineStyleSheet, Navbar, useStyleSheetContext, vfBase, vfTheme } from "@antd/viewfly/ui"
 import { FC, JSXNode } from "@antd/viewfly/ui"
 
 
@@ -20,7 +20,7 @@ const HomePage: FC<{ children?: JSXNode }> = (props) => {
 
     return () => {
         return (
-            <>
+            <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
                 <Navbar >
                     <div></div>
                     <div class={styles.navbar}>
@@ -29,10 +29,10 @@ const HomePage: FC<{ children?: JSXNode }> = (props) => {
                         ))}
                     </div>
                 </Navbar>
-                <ScrollView style={{ height: 'calc(100vh - 60px)' }}>
+                <div style={{ height: 'calc(100vh - 60px)' }}>
                     {props.children}
-                </ScrollView>
-            </>
+                </div>
+            </div>
         )
     }
 }

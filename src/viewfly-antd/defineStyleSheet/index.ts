@@ -104,6 +104,32 @@ export class CSSTSStyleSheet {
         return this.repliceClassName(classnames) as C;
     }
 
+    /** 定义动画 */
+    public defineAnimate = (keyframes: { [k: number]: CSSProperties, form?: CSSProperties, to?: CSSProperties }) => {
+        const sheet = new CSSStyleSheet();
+        const name = uuid('animate')
+        const res: string[] = [];
+        const parseStyle = (css: any) => {
+            const res: string[] = []
+            for (let i in css) {
+                res.push(`${cssKey(i)}:${cssValue(i as any, css[i] as string)};`)
+            }
+            return res.join('\n');
+        }
+        for (let i in keyframes) {
+            const key = isNumber(i) ? i + '%' : i;
+            res.push(`${key} {${parseStyle(keyframes[i])}}`)
+        }
+        const str = `@keyframes ${name} {${res.join('\n')}}`;
+        console.log(str)
+        sheet.replaceSync(str);
+        document.adoptedStyleSheets.push(sheet);
+        /** animation-duration animation-timing-function animation-delay animation-iteration-count animation-direction animation-fill-mode animation-play-state; */
+        return (setting = '') => {
+            return `${name} ${setting}`
+        }
+    }
+
 
 }
 

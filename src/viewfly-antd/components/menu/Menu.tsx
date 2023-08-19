@@ -1,13 +1,11 @@
 import { FC, JSXNode, Key } from "@antd/viewfly/ui"
 import { HTMLAttributes } from "@viewfly/platform-browser"
 import { menuStyles } from "./Menu.style"
-import { inject, onPropsChanged, provide, useSignal, InjectionToken, JSXInternal, onDestroy } from "@viewfly/core"
+import { onPropsChanged, useSignal, JSXInternal } from "@viewfly/core"
 
 
 const indent = 12
-/**
- * @api
- */
+
 export interface MenuItem {
     /** 唯一标识符 */
     key?: Key
@@ -16,7 +14,7 @@ export interface MenuItem {
     /** 小标题 */
     label?: JSXNode
     /** 类型 */
-    type?: 'divider' | 'group'
+    type?: 'divider' | 'group' | undefined
     /** 图标 */
     icon?: JSXNode
     /** 是否禁用
@@ -25,13 +23,14 @@ export interface MenuItem {
     disabled?: boolean
     /** 子节点 */
     children?: MenuItem[]
+    [k: string]: any
 }
-const MenuToken = new InjectionToken<MenuSate>('MenuToken')
-class MenuSate {
+class MenuState {
 
     public state = {
         items: useSignal<MenuItem[]>([]),
-        openKeys: useSignal<Key[]>([])
+        openKeys: useSignal<Key[]>([]),
+
     }
     /** 是否展开*/
     public isOpen = (key: Key) => {
@@ -47,7 +46,9 @@ class MenuSate {
         this.state.openKeys.set([...openKeys])
     }
 
-    update = (props?: Omit<MenuSate, 'update'>) => {
+    public onClick: (item: MenuItem) => any = () => { }
+
+    update = (props?: Omit<MenuState, 'update'>) => {
         const _this = this as any;
         const _props = props as any;
         if (props) {
@@ -57,56 +58,54 @@ class MenuSate {
         }
     }
 }
-export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, 'children'> {
+/**
+ * @api
+ */
+export interface MenuProps extends Omit<HTMLAttributes<HTMLUListElement>, 'children' | 'onClick'> {
+    /** 子节点 */
     items: MenuItem[]
+    /** 展开的Key */
     openKeys?: Key[]
+    /** 点击事件 */
+    onClick?: (item: MenuItem) => any
 }
 /** 菜单 */
 export const Menu: FC<MenuProps> = (props) => {
-    const MenuController = new MenuSate();
-    const app = provide({
-        provide: MenuToken,
-        useValue: MenuController
-    });
+    /** 菜单控制器 */
+    const menuState = new MenuState();
+    menuState.onClick = props.onClick || menuState.onClick;
+
     onPropsChanged<MenuProps>((p) => {
-        MenuController.update(p as any)
+        menuState.update(p as any)
     })
-    onDestroy(() => {
-        app.destroy();
-    })
+
     return () => {
-        const { class: className, items, ...rest } = props;
+        const { class: className, items, onClick, ...rest } = props;
         return (
             <ul {...rest} class={[menuStyles.menu, menuStyles.menuRoot, className as any]}>
-                {renderItems(items, 1)}
+                {renderItems(items, menuState, 1)}
             </ul>
         )
     }
 }
 
-const useMenu = () => {
-    return inject(MenuToken)
-}
-
-
 interface SubMenuProps extends Omit<MenuItemProps, | 'children'> {
     class?: JSXInternal.ClassNames
     items: MenuItem[]
+    menuState: MenuState
 }
+/** 子菜单 */
 const SubMenu: FC<SubMenuProps> = (props) => {
-    const MenuController = useMenu();
-
-
     return () => {
-        const { class: className, title, items, label, key, icon, disabled, level } = props;
-        const isOpen = MenuController.isOpen(key as Key)
+        const { class: className, title, items, label, key, icon, disabled, level, menuState } = props;
+        const isOpen = menuState.isOpen(key as Key)
         return (
             <MenuLi class={[menuStyles.sub, disabled && menuStyles.disabled, className as any]}>
-                <div class={menuStyles.item} onClick={() => MenuController.actionOnClick(key as Key)}>
+                <div class={menuStyles.item} onClick={() => menuState.actionOnClick(key as Key)}>
                     <MenuTitle icon={icon} label={label} title={title} level={level} />
                     <div class={[menuStyles.action, (isOpen && menuStyles.isOpen) as string]} ></div>
                 </div>
-                <ul class={menuStyles.menu}>{renderItems(items, level + 1)}</ul>
+                <ul class={menuStyles.menu}>{renderItems(items, menuState, level + 1)}</ul>
             </MenuLi>
         )
     }
@@ -115,15 +114,16 @@ const SubMenu: FC<SubMenuProps> = (props) => {
 interface GroupMenuProps extends Omit<MenuItemProps, 'key' | 'children'> {
     class?: JSXInternal.ClassNames
     items: MenuItem[]
+    menuState: MenuState
 }
+/** 分组 */
 const GroupMenu: FC<GroupMenuProps> = (props) => {
     return () => {
-        const { class: className, title, items, label, icon, disabled, level } = props;
-
+        const { class: className, title, items, label, icon, disabled, level, menuState } = props;
         return (
             <MenuLi class={[menuStyles.group, disabled && menuStyles.disabled, className as any]} >
                 <MenuTitle icon={icon} label={label} title={title} level={level} />
-                <ul class={menuStyles.menu}>{renderItems(items, level + 1)}</ul>
+                <ul class={menuStyles.menu}>{renderItems(items, menuState, level + 1)}</ul>
             </MenuLi>
         )
     }
@@ -133,32 +133,34 @@ interface MenuItemProps extends Omit<MenuItem, 'children'> {
     items: MenuItem[]
     /**缩进 */
     level: number
+    menuState: MenuState
 }
+/** 菜单项分流 */
 const MenuItem: FC<MenuItemProps> = (props) => {
     return () => {
-        const { title, type, items, label, icon, disabled, level } = props;
+        const { title, type, items, label, icon, disabled, level, menuState } = props;
         if (type === 'divider') {
             return (
                 <li class={menuStyles.divider} />
             )
         }
         if (type === 'group') {
-            return <GroupMenu {...props} />
+            return <GroupMenu {...props} menuState={menuState} />
         }
 
         if (!items || items?.length === 0) {
             return (
-                <MenuLi class={[menuStyles.item, (disabled && menuStyles.disabled) as any]} >
+                <MenuLi class={[menuStyles.item, (disabled && menuStyles.disabled) as any]} onClick={() => menuState.onClick(props)}>
                     <MenuTitle icon={icon} label={label} title={title} level={level} />
                 </MenuLi>
             )
         }
         else {
-            return <SubMenu {...props} />
+            return <SubMenu {...props} menuState={menuState} />
         }
     }
 }
-
+/** 标题 */
 const MenuTitle: FC<Omit<MenuItemProps, 'disabled' | 'children' | 'key' | 'items'>> = (props) => {
     return () => {
         const { title, label, icon } = props;
@@ -171,15 +173,15 @@ const MenuTitle: FC<Omit<MenuItemProps, 'disabled' | 'children' | 'key' | 'items
         )
     }
 }
-
+/** 菜单项 */
 const MenuLi: FC<HTMLAttributes<HTMLLIElement>> = (props) => {
     return () => <li {...props} >{props.children}</li>
 }
-
-const renderItems = (items: MenuItem[] = [], level = 0) => {
+/** 渲染菜单项分类 */
+const renderItems = (items: MenuItem[] = [], menuState: MenuState, level = 0) => {
     return items.map(item => {
         const { children, ...rest } = item;
-        return <MenuItem items={children as MenuItem[]} {...rest} level={level} />
+        return <MenuItem items={children as MenuItem[]} {...rest} level={level} menuState={menuState} />
     })
 }
 

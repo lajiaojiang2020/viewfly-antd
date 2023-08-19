@@ -1,5 +1,6 @@
-import { useDisabled } from "@/viewfly-antd/context/DisabledProvide";
-import { useSize } from "@/viewfly-antd/context/SizeProvide";
+import { useDisabledWithProps } from "@/viewfly-antd/context/DisabledProvide";
+import { useSizeWithProps } from "@/viewfly-antd/context/SizeProvide";
+import { useClickAnimateRef } from "@/viewfly-antd/hooks/useClickAnimateRef";
 import { AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties } from "@viewfly/platform-browser";
 import { EventHandle, FC, JSXNode, SizeType } from "../../type";
 import { btnStyles } from "./Button.style";
@@ -67,8 +68,9 @@ export interface ButtonProps extends BaseButtonProps, AnchorButtonProps, NativeB
 }
 /** 按钮 */
 export const Button: FC<ButtonProps> = (props) => {
-    const disabledValue = useDisabled(props.disabled);
-    const sizeValue = useSize(props.size);
+    const disabledValue = useDisabledWithProps(props);
+    const sizeValue = useSizeWithProps(props, 'middle');
+    const puffOut = useClickAnimateRef()
     return () => {
 
         const {
@@ -76,14 +78,15 @@ export const Button: FC<ButtonProps> = (props) => {
             type = 'default',
             danger,
             shape = 'default',
-            size = sizeValue() ?? 'middle',
+            size = sizeValue(),
             children,
             icon,
             ghost = false,
             block = false,
-            disabled = props.disabled ?? disabledValue() ?? false,
+            disabled = disabledValue(),
             htmlType = 'button' as ButtonProps['htmlType'],
             class: className,
+            ref,
             ...rest
         } = props;
 
@@ -107,12 +110,12 @@ export const Button: FC<ButtonProps> = (props) => {
 
         if (type === 'link') {
             return (
-                <a {...rest} class={classNames}>{childNode}</a>
+                <a {...rest} class={classNames} ref={[ref, puffOut]}>{childNode}</a>
             )
         }
         return (
 
-            <button {...rest} type={htmlType} class={classNames} >
+            <button {...rest} type={htmlType} class={classNames} ref={[ref, puffOut]}>
                 {childNode}
             </button>
         )

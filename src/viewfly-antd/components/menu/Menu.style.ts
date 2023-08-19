@@ -51,12 +51,23 @@ export const menuStyles = defineStyleSheet('menu', () => {
             }
         },
 
+        [s(label)]: {
+            marginLeft: 6,
+            fontWeight: 'normal',
+            fontSize: 12,
+            opacity: 0.67
+        },
+
         [s(icon)]: {
             marginRight: 10
         },
 
         [s(`&${menuRoot}`)]: {
             borderRight: vfBase.border,
+            [s(`>${group}>${titleView}`)]: {
+                borderBottom: vfBase.border,
+                paddingLeft: '24px!important'
+            }
         },
 
         [s(`${group}>${titleView}`)]: {

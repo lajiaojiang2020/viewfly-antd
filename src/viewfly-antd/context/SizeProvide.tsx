@@ -1,4 +1,4 @@
-import { inject, onPropsChanged, provide, Signal, useSignal } from "@viewfly/core"
+import { inject, onPropsChanged, provide, Signal, useDerived, useSignal } from "@viewfly/core"
 import { InjectionToken } from "@viewfly/core"
 import { FC, JSXNode, SizeType } from "../type"
 
@@ -24,8 +24,15 @@ export const SizeProvide: FC<SizeProps> = (props) => {
 
     return () => props.children
 }
-
+/** 获取 尺寸小 上下文  */
 export const useSize = (value?: SizeType) => {
     const sizeController = useSignal(value)
     return inject(SizeToken, sizeController)
+}
+
+/** 获取 尺寸小 上下文 优先使用组件属性 */
+export const useSizeWithProps = (props: any, value?: SizeType) => {
+    const sizeController = useSignal<SizeType | undefined>(props.size || value);
+    const context = inject(SizeToken, sizeController)
+    return useDerived<SizeType>(() => props.size ?? context() ?? value)
 }

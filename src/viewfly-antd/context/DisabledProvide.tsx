@@ -1,4 +1,4 @@
-import { inject, onPropsChanged, provide, Signal, useSignal } from "@viewfly/core"
+import { inject, onPropsChanged, provide, Signal, useSignal, useDerived } from "@viewfly/core"
 import { InjectionToken } from "@viewfly/core"
 import { FC, JSXNode } from "../type"
 
@@ -8,6 +8,7 @@ export interface DisabledProps {
     children?: JSXNode
     value: boolean
 }
+/** 注入 禁用状态 上下文 */
 export const DisabledProvide: FC<DisabledProps> = (props) => {
     const disableController = useSignal(props.value)
 
@@ -24,8 +25,14 @@ export const DisabledProvide: FC<DisabledProps> = (props) => {
 
     return () => props.children
 }
-
+/** 获取 禁用状态 上下文 */
 export const useDisabled = (value?: boolean) => {
     const disableController = useSignal(value)
     return inject(DisabledToken, disableController)
+}
+/** 获取 禁用状态 上下文 优先使用组件属性 */
+export const useDisabledWithProps = (props: any, value?: boolean) => {
+    const disableController = useSignal<boolean | undefined>(props.disabled || value);
+    const context = inject(DisabledToken, disableController)
+    return useDerived<boolean>(() => props.disabled ?? context() ?? value)
 }

@@ -41,6 +41,10 @@ export const btnStyles = defineStyleSheet('button', () => {
             color: vfTheme.primaryColorActive,
             borderColor: vfTheme.primaryColorActive
         },
+        [s(`&.active`)]: {
+            color: vfTheme.primaryColorActive,
+            borderColor: vfTheme.primaryColorActive
+        },
         [s(`&${danger}`)]: {
             color: vfTheme.errorColor,
             borderColor: vfTheme.errorColor,
@@ -49,6 +53,10 @@ export const btnStyles = defineStyleSheet('button', () => {
                 borderColor: vfTheme.errorColorHover
             },
             [s(`&:active`)]: {
+                color: vfTheme.errorColorActive,
+                borderColor: vfTheme.errorColorActive
+            },
+            [s(`&.active`)]: {
                 color: vfTheme.errorColorActive,
                 borderColor: vfTheme.errorColorActive
             },
@@ -95,6 +103,10 @@ export const btnStyles = defineStyleSheet('button', () => {
                     color: vfColor.basicWhite,
                     backgroundColor: vfTheme.primaryColorActive
                 },
+                [s(`&.active`)]: {
+                    color: vfColor.basicWhite,
+                    backgroundColor: vfTheme.primaryColorActive
+                },
 
                 [s(`&${danger}`)]: {
                     backgroundColor: vfTheme.errorColor,
@@ -105,6 +117,10 @@ export const btnStyles = defineStyleSheet('button', () => {
                     },
 
                     [s(`&:active`)]: {
+                        color: vfColor.basicWhite,
+                        backgroundColor: vfTheme.errorColorActive
+                    },
+                    [s(`&.active`)]: {
                         color: vfColor.basicWhite,
                         backgroundColor: vfTheme.errorColorActive
                     },
@@ -132,6 +148,9 @@ export const btnStyles = defineStyleSheet('button', () => {
                     [s(`&:active`)]: {
                         backgroundColor: vfColor.activeBackground
                     },
+                    [s(`&.active`)]: {
+                        backgroundColor: vfColor.activeBackground
+                    },
 
                     [s(`&${danger}`)]: {
                         color: vfTheme.errorColor,
@@ -151,6 +170,9 @@ export const btnStyles = defineStyleSheet('button', () => {
                 [s(`&:active`)]: {
                     color: vfTheme.primaryColorActive
                 },
+                [s(`&.active`)]: {
+                    color: vfTheme.primaryColorActive
+                },
 
                 [s(`&${danger}`)]: {
                     color: vfTheme.errorColor,
@@ -158,6 +180,9 @@ export const btnStyles = defineStyleSheet('button', () => {
                         color: vfTheme.errorColorHover
                     },
                     [s(`&:active`)]: {
+                        color: vfTheme.errorColorActive
+                    },
+                    [s(`&.active`)]: {
                         color: vfTheme.errorColorActive
                     },
                 },

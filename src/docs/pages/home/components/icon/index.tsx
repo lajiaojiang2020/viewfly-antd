@@ -8,7 +8,7 @@ import { defineStyleSheet, vfBase, vfTheme, FC, useStyleSheetContext } from "@an
 /**
  * @group 通用
  * @title Icon
- * @subtitle 图标
+ * @label 图标
  * @orderIndex 1
  */
 const IconPage: FC = () => {

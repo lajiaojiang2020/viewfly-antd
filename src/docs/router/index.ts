@@ -37,13 +37,14 @@ class HashRouter<T = {}> {
     private history: { path: string, query: any }[] = [];
     private routerMap: Record<string, HashRouterImteType<T>> = {};
     private onChangeHandles: Array<HashRouterChangedHandle<T>> = []
-
+    public active: string = ''
     constructor() {
         window.addEventListener('hashchange', this.pares);
     }
 
     private pares = () => {
         const hash = window.location.hash.substring(1);
+        this.active = hash;
         let props: any = {};
         const path = hash.replace(/^(.+?)(\?.+?|)$/, (_x, x1: string, x2: string) => {
             props = url2map(x2);
@@ -91,9 +92,6 @@ class HashRouter<T = {}> {
     public addRouter = (item: HashRouterImteType<T>[]) => {
         item.forEach(item => this.routerMap[item.path] = item);
         this.pares();
-        if (!window.location.hash) {
-            this.push('/')
-        }
     }
 
     /** 当没有子节点时 设置重定向 */
