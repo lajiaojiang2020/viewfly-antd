@@ -41,9 +41,10 @@ const ButtonPage: FC = () => {
                     <h2>代码演示</h2>
                 </Markdown>
                 <DemoCardGroup >
-                    <DemoCard id='home.components.button.type.demo' />
-                    <DemoCard id='home.components.button.icon.demo' />
-                    <DemoCard id='home.components.button.disabled.demo' />
+                    <DemoCard id='home.components.button.demo.type' />
+                    <DemoCard id='home.components.button.demo.icon' />
+                    <DemoCard id='home.components.button.demo.size' />
+                    <DemoCard id='home.components.button.demo.disabled' />
                 </DemoCardGroup>
 
 

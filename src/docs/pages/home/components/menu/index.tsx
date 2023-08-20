@@ -14,7 +14,7 @@ const MenuPage: FC = () => {
         return (
             <DemoPage>
                 <h2>Menu 菜单</h2>
-                <DemoCard id='home.components.menu.inline.demo' />
+                <DemoCard id='home.components.menu.demo.inline' />
             </DemoPage>
         )
     }

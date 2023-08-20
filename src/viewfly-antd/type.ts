@@ -9,8 +9,8 @@ export type Key = string | number
 export type ClassNameMap<T extends string> = Record<T, string>;
 export type CSSDifineMap = Record<number, DefineSheet>;
 
-export type SizeType = 'small' | 'middle' | 'large'
-export const Sizes: SizeType[] = ['small', 'middle', 'large'];
+export type SizeType = 'small' | 'middle' | 'large' | 'default'
+export const Sizes: SizeType[] = ['small', 'middle', 'large', 'default'];
 /** 公共属性 */
 export interface ComponentCommProps {
     /** 类 */

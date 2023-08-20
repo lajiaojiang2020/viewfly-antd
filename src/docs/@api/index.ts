@@ -56,7 +56,7 @@ export default {
           "name": "htmlType",
           "description": "-",
           "isOptional": true,
-          "type": "'button'|'reset'|'submit'",
+          "type": "'reset'|'submit'|'button'",
           "defaultValue": "-"
         },
         {

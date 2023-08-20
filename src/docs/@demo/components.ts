@@ -1,6 +1,7 @@
-import home_components_button_disabled_demo from "@/docs/pages/home/components/button/disabled.demo";;
-import home_components_button_icon_demo from "@/docs/pages/home/components/button/icon.demo";;
-import home_components_button_type_demo from "@/docs/pages/home/components/button/type.demo";;
-import home_components_menu_inline_demo from "@/docs/pages/home/components/menu/inline.demo";
+import home_components_button_demo_disabled from "@/docs/pages/home/components/button/demo.disabled";;
+import home_components_button_demo_icon from "@/docs/pages/home/components/button/demo.icon";;
+import home_components_button_demo_size from "@/docs/pages/home/components/button/demo.size";;
+import home_components_button_demo_type from "@/docs/pages/home/components/button/demo.type";;
+import home_components_menu_demo_inline from "@/docs/pages/home/components/menu/demo.inline";
 
-export default {"home.components.button.disabled.demo":home_components_button_disabled_demo,"home.components.button.icon.demo":home_components_button_icon_demo,"home.components.button.type.demo":home_components_button_type_demo,"home.components.menu.inline.demo":home_components_menu_inline_demo}
+export default {"home.components.button.demo.disabled":home_components_button_demo_disabled,"home.components.button.demo.icon":home_components_button_demo_icon,"home.components.button.demo.size":home_components_button_demo_size,"home.components.button.demo.type":home_components_button_demo_type,"home.components.menu.demo.inline":home_components_menu_demo_inline}

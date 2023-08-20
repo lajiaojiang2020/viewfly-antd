@@ -6,7 +6,7 @@ import { FC, JSXNode } from "../type"
 const DisabledToken = new InjectionToken<Signal<boolean>>('DisabledToken')
 export interface DisabledProps {
     children?: JSXNode
-    value: boolean
+    value: boolean | undefined
 }
 /** 注入 禁用状态 上下文 */
 export const DisabledProvide: FC<DisabledProps> = (props) => {

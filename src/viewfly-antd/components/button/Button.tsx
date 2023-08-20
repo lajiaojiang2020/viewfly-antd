@@ -69,8 +69,8 @@ export interface ButtonProps extends BaseButtonProps, AnchorButtonProps, NativeB
 /** 按钮 */
 export const Button: FC<ButtonProps> = (props) => {
     const disabledValue = useDisabledWithProps(props);
-    const sizeValue = useSizeWithProps(props, 'middle');
-    const puffOut = useClickAnimateRef()
+    const sizeValue = useSizeWithProps(props);
+    const clickPuffOut = useClickAnimateRef()
     return () => {
 
         const {
@@ -78,7 +78,7 @@ export const Button: FC<ButtonProps> = (props) => {
             type = 'default',
             danger,
             shape = 'default',
-            size = sizeValue(),
+            size = sizeValue() ?? 'default',
             children,
             icon,
             ghost = false,
@@ -94,7 +94,7 @@ export const Button: FC<ButtonProps> = (props) => {
             btnStyles.button,
             btnStyles.type[type],
             btnStyles[shape],
-            btnStyles[size],
+            btnStyles.size[size!],
             danger && btnStyles.danger,
             disabled && btnStyles.disabled,
             icon && (children === undefined || children === null) ? btnStyles.onlyIcon : null,
@@ -110,12 +110,12 @@ export const Button: FC<ButtonProps> = (props) => {
 
         if (type === 'link') {
             return (
-                <a {...rest} class={classNames} ref={[ref, puffOut]}>{childNode}</a>
+                <a {...rest} class={classNames} ref={[ref, clickPuffOut]}>{childNode}</a>
             )
         }
         return (
 
-            <button {...rest} type={htmlType} class={classNames} ref={[ref, puffOut]}>
+            <button {...rest} type={htmlType} class={classNames} ref={[ref, clickPuffOut]}>
                 {childNode}
             </button>
         )

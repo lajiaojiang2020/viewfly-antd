@@ -1,51 +1,28 @@
 import { useRef } from '@viewfly/core'
-import { useStyleSheetContext } from '../defineStyleSheet'
-import { defineAnimate, defineStyleSheet } from '../style/base.style'
+import { vfTheme } from '../style/base.style'
 
-const puffOut = defineAnimate({
-    0: {
-        opacity: 1,
-        transformOrigin: '50% 50%',
-        transform: 'scale(1,1)',
-        filter: 'blur(0px)'
-    },
-    100: {
-        opacity: 0,
-        transformOrigin: '50% 50%',
-        transform: 'scale(1.5,1.5)',
-        filter: 'blur(2px)',
-    }
-})
 
-const styles = defineStyleSheet('click-puff-out', () => {
-    const { s, define, className } = useStyleSheetContext()
-    const name = className();
-    define(s(name), {
-        pointerEvents: 'none',
-        zIndex: 99999,
-        animationName: puffOut(),
-        animationFillMode: 'both',
-        animationDuration: '0.5s'
-    })
-    return { name }
-})
-
+const isNull = (value: string) => {
+    return value === 'rgb(255, 255, 255)' || value === 'rgba(0, 0, 0, 0)'
+}
 /** 点击发散动画 */
 export const useClickAnimateRef = () => {
     const ref = useRef<HTMLElement>(el => {
         const handleClick = () => {
-            const rect = el.getBoundingClientRect();
-            console.log(rect)
-            const node = el.cloneNode(true) as HTMLElement;
-            node.style.position = 'fixed'
-            node.style.width = rect.width + 'px';
-            node.style.height = rect.height + 'px';
-            node.style.top = rect.top + 'px';
-            node.style.left = rect.left + 'px';
-            node.classList.add(styles.name);
-            node.classList.add('active');
-            document.body.append(node);
-            setTimeout(() => node.parentElement?.removeChild(node), 500)
+            setTimeout(() => {
+                const style = getComputedStyle(el, null);
+                const colors = [style.backgroundColor, style.borderColor, style.color];
+                const color = colors.find(c => !isNull(c)) || vfTheme.primaryColor;
+                const oldboxShadow = el.style.boxShadow || '';
+                const oldTransition = el.style.transition || '';
+                el.style.boxShadow = `0 0 0 0.25rem ${color}`
+                el.style.transition = 'box-shadow 0.5s';
+                setTimeout(() => {
+                    el.style.boxShadow = oldboxShadow;
+                    el.style.transition = oldTransition;
+                }, 500)
+            }, 150)
+
         }
         el.addEventListener('click', handleClick, true)
         return () => el.removeEventListener('click', handleClick)

@@ -1,4 +1,4 @@
-export default {"home.components.button.disabled.demo":{label:"不可用状态",content:"添加 disabled 属性即可让按钮处于不可用状态，同时按钮样式也会改变。",code:`
+export default {"home.components.button.demo.disabled":{label:"不可用状态",content:"添加 disabled 属性即可让按钮处于不可用状态，同时按钮样式也会改变。",code:`
 import { Button, FC, Space } from "@antd/viewfly/ui"
 
 const App: FC = () => {
@@ -72,7 +72,7 @@ const App: FC = () => {
     )
 }
 export default App;
-`},"home.components.button.icon.demo":{label:"图标按钮",content:"当需要在 Button 内嵌入 Icon 时，可以设置 icon 属性，或者直接在 Button 内使用 Icon 组件。如果想控制 Icon 具体的位置，只能直接使用 Icon 组件，而非 icon 属性。",code:`
+`},"home.components.button.demo.icon":{label:"图标按钮",content:"当需要在 Button 内嵌入 Icon 时，可以设置 icon 属性，或者直接在 Button 内使用 Icon 组件。如果想控制 Icon 具体的位置，只能直接使用 Icon 组件，而非 icon 属性。",code:`
 import { SearchOutlined } from "@antd/viewfly/icon";
 import { Button, FC, Space, Tooltip } from "@antd/viewfly/ui"
 
@@ -113,7 +113,54 @@ const App: FC = () => {
     )
 }
 export default App;
-`},"home.components.button.type.demo":{label:"按钮类型",content:"按钮有五种类型：主按钮、次按钮、虚线按钮、文本按钮和链接按钮。主按钮在同一个操作区域最多出现一次。",code:`
+`},"home.components.button.demo.size":{label:"按钮尺寸",content:"按钮有大、中、小三种尺寸。通过设置 size 为 large small 分别把按钮设为大、小尺寸。若不设置 size，则尺寸为中。",code:`
+import { DownloadOutlined } from "@antd/viewfly/icon";
+import { Button, Divider, FC, Radio, SizeType, Space } from "@antd/viewfly/ui"
+import { useSignal } from "@viewfly/core";
+
+const App: FC = () => {
+    const size = useSignal<SizeType>('large'); // default is 'middle'
+
+    return () => (
+        <>
+            <Radio.Group value={size()} onChange={size.set}>
+                <Radio.Button value="large">Large</Radio.Button>
+                <Radio.Button value="default">Default</Radio.Button>
+                <Radio.Button value="small">Small</Radio.Button>
+            </Radio.Group>
+            <Divider orientation="left" plain>
+                Preview
+            </Divider>
+            <Space direction="vertical">
+                <Space wrap>
+                    <Button type="primary" size={size()}>
+                        Primary
+                    </Button>
+                    <Button size={size()}>Default</Button>
+                    <Button type="dashed" size={size()}>
+                        Dashed
+                    </Button>
+                </Space>
+                <Button type="link" size={size()}>
+                    Link
+                </Button>
+                <Space wrap>
+                    <Button type="primary" icon={<DownloadOutlined />} size={size()} />
+                    <Button type="primary" shape="circle" icon={<DownloadOutlined />} size={size()} />
+                    <Button type="primary" shape="round" icon={<DownloadOutlined />} size={size()} />
+                    <Button type="primary" shape="round" icon={<DownloadOutlined />} size={size()}>
+                        Download
+                    </Button>
+                    <Button type="primary" icon={<DownloadOutlined />} size={size()}>
+                        Download
+                    </Button>
+                </Space>
+            </Space>
+        </>
+    );
+};
+export default App;
+`},"home.components.button.demo.type":{label:"按钮类型",content:"按钮有五种类型：主按钮、次按钮、虚线按钮、文本按钮和链接按钮。主按钮在同一个操作区域最多出现一次。",code:`
 
 import { Button, FC, Space } from "@antd/viewfly/ui"
 
@@ -131,7 +178,7 @@ const App: FC = () => {
     }
 }
 export default App;
-`},"home.components.menu.inline.demo":{label:"内嵌菜单",content:"垂直菜单，子菜单内嵌在菜单区域。",code:`import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@antd/viewfly/icon';
+`},"home.components.menu.demo.inline":{label:"内嵌菜单",content:"垂直菜单，子菜单内嵌在菜单区域。",code:`import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@antd/viewfly/icon';
 import { Menu, JSXNode, Key, MenuItem, MenuProps, FC } from '@antd/viewfly/ui'
 
 

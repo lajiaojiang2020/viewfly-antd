@@ -40,8 +40,8 @@ export const getTypeJson = async (path) => {
         const tables = [];
         /**@type {Record<string,import('./type').Children>} */
         const map = {};
-        /**@type {import('./type').Children|null} */
-        let entry = null
+        /**@type {import('./type').Children[]} */
+        let entry = []
 
         const project = app.convert();
         if (project) {
@@ -57,7 +57,7 @@ export const getTypeJson = async (path) => {
             json.children?.forEach((item) => {
                 map[item.name] = item;
                 if (isMain(item)) {
-                    entry = item;
+                    entry.push(item);
                 }
             })
             /**
@@ -132,8 +132,8 @@ export const getTypeJson = async (path) => {
                     })
                 })
             }
-            if (entry) {
-                createTable(entry)
+            if (entry.length > 0) {
+                entry.forEach(createTable)
             }
             // console.log(JSON.stringify(tables, null, 2))
             return tables

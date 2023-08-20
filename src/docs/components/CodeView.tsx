@@ -1,5 +1,5 @@
 
-import { FC } from "@antd/viewfly/ui"
+import { FC, ScrollView } from "@antd/viewfly/ui"
 import { useRef } from "@viewfly/core";
 import codejs from 'highlight.js';
 import 'highlight.js/styles/github.css'
@@ -13,11 +13,11 @@ export const CodeView: FC<CodeViewProps> = (props) => {
         el.innerHTML = codejs.highlightAuto(props.code, ['typescript', 'tsx']).value
     })
     return () => (
-        <div style={{ fontSize: '16px', backgroundColor: '#fff', lineHeight: 1.5 }}>
-            <pre>
+        <ScrollView style={{ fontSize: '14px', backgroundColor: '#fff', lineHeight: 1.35 }} scrollX scrollY={false}>
+            <pre style={{ width: 'max-content' }}>
                 <code ref={ref}></code>
             </pre>
-        </div>
+        </ScrollView>
     )
 }
 

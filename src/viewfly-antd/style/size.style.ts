@@ -4,8 +4,8 @@ const createSize = () => {
     return {
         small: variable({
             fontSize: '12px',
-            lineHeight: '22px',
-            height: '22px',
+            lineHeight: '24px',
+            height: '24px',
             padding: '0px 7px',
             borderRadius: `calc(${vfBase.baseRadius} * 6 )`,
             ...formItemStyle
@@ -16,7 +16,8 @@ const createSize = () => {
             height: '32px',
             padding: '0px 15px',
             borderRadius: `calc(${vfBase.baseRadius} * 6 )`,
-            ...formItemStyle
+            ...formItemStyle,
+
         }, 'size-middle'),
         large: variable({
             fontSize: '16px',
@@ -24,7 +25,7 @@ const createSize = () => {
             height: '40px',
             padding: '0px 15px',
             borderRadius: `calc(${vfBase.baseRadius} * 6 )`,
-            ...formItemStyle
+            ...formItemStyle,
         }, 'size-large'),
     }
 }

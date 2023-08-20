@@ -8,7 +8,7 @@ export interface DemoPageProps {
 }
 export const DemoPage: FC<DemoPageProps> = (props) => {
     const path = router.active as keyof typeof ApiTables;
-    const apiTable = ApiTables[path];
+    const apiTable = (ApiTables[path]) as any[];
     return () => {
         const { children } = props;
         return (

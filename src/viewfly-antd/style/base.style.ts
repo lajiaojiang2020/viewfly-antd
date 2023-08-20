@@ -1,4 +1,4 @@
-import { createStyleSheet, useStyleSheetContext } from "../defineStyleSheet";
+import { createStyleSheet, CSSProperties, useStyleSheetContext } from "../defineStyleSheet";
 import { getStyle, Theme } from "./cssVariables";
 
 export const { variable, defineStyleSheet, defineAnimate } = createStyleSheet('vf');
@@ -42,11 +42,12 @@ export const vfBase = variable({
     borderRadius: '6px',
     baseRadius: '1px'
 });
-export const formItemStyle = {
+export const formItemStyle: CSSProperties = {
     position: 'relative',
     display: 'inline-block',
     whiteSpace: 'nowrap',
     transition: 'all .3s cubic-bezier(.645,.045,.355,1)',
+
 }
 
 defineStyleSheet('', () => {

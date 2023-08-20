@@ -1,5 +1,5 @@
 import { defineStyleSheet, vfBase, vfColor, vfTheme } from "../../style/base.style";
-import { useCssSizeDefine } from './../../style/cssHooks'
+import { useCssSizeDefine, useDisabled } from './../../style/cssHooks'
 import { ButtonShape, ButtonType } from "./Button";
 import { DefineSheet, useStyleSheetContext } from '../../defineStyleSheet'
 
@@ -13,20 +13,20 @@ export const btnStyles = defineStyleSheet('button', () => {
     const icon = className('icon');
     const onlyIcon = className('only-icon')
     const danger = className('is-danger')
-    const disabled = className('is-disabled')
     const typesClassName: Record<ButtonType, string> = {} as Record<ButtonType, string>;
     const typesSelector: Record<ButtonType, number> = {} as Record<ButtonType, number>;
     const shapeClassName: Record<ButtonShape, string> = {} as Record<ButtonShape, string>;
     const shapeSelector: Record<ButtonShape, number> = {} as Record<ButtonShape, number>;
 
     const sizeClassName = useCssSizeDefine();
+    const { disabled } = useDisabled()
 
     ButtonTypes.forEach((type: ButtonType) => {
         typesClassName[type] = className(`is-${type}`);
         typesSelector[type] = s(`&${typesClassName[type]}`)
     });
     ButtonShapes.forEach((type: ButtonShape) => {
-        shapeClassName[type] = className(`shape-si-${type}`);
+        shapeClassName[type] = className(`shape-is-${type}`);
         shapeSelector[type] = s(`&${shapeClassName[type]}`)
     });
 
@@ -74,15 +74,6 @@ export const btnStyles = defineStyleSheet('button', () => {
         border: vfBase.transparentBorder,
         color: vfColor.primaryText,
         background: vfColor.baseBackground,
-
-        [s(`&${disabled}`)]: {
-            pointerEvents: 'none',
-            cursor: 'not-allowed',
-            borderColor: '#d9d9d9',
-            color: 'rgba(0,0,0,.25)',
-            backgroundColor: 'rgba(0,0,0,.04)',
-            boxShadow: 'none'
-        },
 
         [s('>span')]: {
             display: 'inline-block'
@@ -199,7 +190,7 @@ export const btnStyles = defineStyleSheet('button', () => {
             minWidth: 32,
             paddingInlineStart: 0,
             paddingInlineEnd: 0,
-            borderRadius: '50%'
+            borderRadius: '50%',
         },
 
 
@@ -213,5 +204,5 @@ export const btnStyles = defineStyleSheet('button', () => {
             marginInlineEnd: 8
         }
     })
-    return { button, icon, danger, onlyIcon, disabled, type: typesClassName, ...shapeClassName, ...sizeClassName }
+    return { button, icon, danger, onlyIcon, disabled, type: typesClassName, ...shapeClassName, size: sizeClassName }
 })

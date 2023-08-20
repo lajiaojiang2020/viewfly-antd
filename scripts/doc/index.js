@@ -39,7 +39,7 @@ const isTsx = (name) => {
  * @returns {boolean}
  */
 const isDemo = (name) => {
-    return name.split('.').pop() === 'demo'
+    return name.split('.').shift() === 'demo'
 }
 /**
  * 
